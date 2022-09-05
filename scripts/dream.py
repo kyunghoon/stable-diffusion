@@ -10,6 +10,7 @@ import copy
 import warnings
 import time
 import ldm.dream.readline
+import subprocess
 from ldm.dream.pngwriter import PngWriter, PromptFormatter
 from ldm.dream.server import DreamServer, ThreadingDreamServer
 from ldm.dream.image_util import make_grid
@@ -296,6 +297,8 @@ def main_loop(t2i, outdir, prompt_as_dir, parser, infile):
         print('Outputs:')
         log_path = os.path.join(current_outdir, 'dream_log.txt')
         write_log_message(results, log_path)
+        for r in results:
+            subprocess.call("%s/../../preview.sh '%s'" % (current_outdir, str(r)), shell=True)
 
     print('goodbye!')
 
